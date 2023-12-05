@@ -27,58 +27,53 @@ fn approach_3() -> Result<(), Box<dyn Error>> {
             Ok(l) => {
                 let mut l = l.clone();
                 let mut nums: Vec<u32> = Vec::new();
-                // TODO FOUND OUT that the find() method only gets the first instance of a substring in a string
-                // need to use match_indices() method instead and iterate over all indices
-                match l.find("one") {
-                    Some(index) => {
-                        l.insert(index, '1');
-                    }
-                    None => {}
+                // need to find a solution to breaking words
+                let ones: Vec<_> = l.match_indices("one").map(|(i, _)| i).collect();
+                let twos: Vec<_> = l.match_indices("two").map(|(i, _)| i).collect();
+                let threes: Vec<_> = l.match_indices("three").map(|(i, _)| i).collect();
+                let fours: Vec<_> = l.match_indices("four").map(|(i, _)| i).collect();
+                let fives: Vec<_> = l.match_indices("five").map(|(i, _)| i).collect();
+                let sixes: Vec<_> = l.match_indices("six").map(|(i, _)| i).collect();
+                let sevens: Vec<_> = l.match_indices("seven").map(|(i, _)| i).collect();
+                let eights: Vec<_> = l.match_indices("eight").map(|(i, _)| i).collect();
+                let nines: Vec<_> = l.match_indices("nine").map(|(i, _)| i).collect();
+
+                for index in ones {
+                    l.insert(index, '1')
                 }
-                match l.find("two") {
-                    Some(index) => l.insert(index, '2'),
-                    None => {}
+
+                for index in twos {
+                    l.insert(index, '2')
                 }
-                match l.find("three") {
-                    Some(index) => l.insert(index, '3'),
-                    None => {}
+
+                for index in threes {
+                    l.insert(index, '3')
                 }
-                match l.find("four") {
-                    Some(index) => {
-                        l.insert(index, '4');
-                    }
-                    None => {}
+
+                for index in fours {
+                    l.insert(index, '4')
                 }
-                match l.find("five") {
-                    Some(index) => {
-                        l.insert(index, '5');
-                    }
-                    None => {}
+
+                for index in fives {
+                    l.insert(index, '5')
                 }
-                match l.find("six") {
-                    Some(index) => {
-                        l.insert(index, '6');
-                    }
-                    None => {}
+
+                for index in sixes {
+                    l.insert(index, '6')
                 }
-                match l.find("seven") {
-                    Some(index) => {
-                        l.insert(index, '7');
-                    }
-                    None => {}
+
+                for index in sevens {
+                    l.insert(index, '7')
                 }
-                match l.find("eight") {
-                    Some(index) => {
-                        l.insert(index, '8');
-                    }
-                    None => {}
+
+                for index in eights {
+                    l.insert(index, '8')
                 }
-                match l.find("nine") {
-                    Some(index) => {
-                        l.insert(index, '9');
-                    }
-                    None => {}
+
+                for index in nines {
+                    l.insert(index, '9')
                 }
+
                 for char in l.chars() {
                     if char.is_numeric() {
                         nums.push(char.to_digit(10).unwrap());
