@@ -7,6 +7,96 @@ use std::path::Path;
 fn main() -> io::Result<()> {
     let _ = approach_1();
     let _ = approach_2();
+    let _ = approach_3();
+
+    Ok(())
+}
+fn approach_3() -> Result<(), Box<dyn Error>> {
+    // Specify the file path
+    let path = Path::new("input/day1.txt");
+
+    // Open the file in read-only mode
+    let file = File::open(&path)?;
+
+    // Create a BufReader for the file
+    let reader = io::BufReader::new(file);
+    let mut sum: u32 = 0;
+    // Iterate over each line
+    for line in reader.lines() {
+        match line {
+            Ok(l) => {
+                let mut l = l.clone();
+                let mut nums: Vec<u32> = Vec::new();
+                // TODO FOUND OUT that the find() method only gets the first instance of a substring in a string
+                // need to use match_indices() method instead and iterate over all indices
+                match l.find("one") {
+                    Some(index) => {
+                        l.insert(index, '1');
+                    }
+                    None => {}
+                }
+                match l.find("two") {
+                    Some(index) => l.insert(index, '2'),
+                    None => {}
+                }
+                match l.find("three") {
+                    Some(index) => l.insert(index, '3'),
+                    None => {}
+                }
+                match l.find("four") {
+                    Some(index) => {
+                        l.insert(index, '4');
+                    }
+                    None => {}
+                }
+                match l.find("five") {
+                    Some(index) => {
+                        l.insert(index, '5');
+                    }
+                    None => {}
+                }
+                match l.find("six") {
+                    Some(index) => {
+                        l.insert(index, '6');
+                    }
+                    None => {}
+                }
+                match l.find("seven") {
+                    Some(index) => {
+                        l.insert(index, '7');
+                    }
+                    None => {}
+                }
+                match l.find("eight") {
+                    Some(index) => {
+                        l.insert(index, '8');
+                    }
+                    None => {}
+                }
+                match l.find("nine") {
+                    Some(index) => {
+                        l.insert(index, '9');
+                    }
+                    None => {}
+                }
+                for char in l.chars() {
+                    if char.is_numeric() {
+                        nums.push(char.to_digit(10).unwrap());
+                    }
+                }
+                let mut num = nums.first().unwrap().to_string();
+                num.push_str(nums.last().unwrap().to_string().as_str());
+                let num_val: u32 = num.parse().unwrap();
+                println!(
+                    "new line is: {}, values are: {:?}, num_val is: {}",
+                    l, nums, num_val
+                );
+                sum += num_val;
+            }
+            Err(e) => println!("Error reading line: {}", e),
+        }
+    }
+    println!("Approach 3 SUM: {}", sum);
 
     Ok(())
 }
@@ -103,7 +193,7 @@ fn approach_2() -> Result<(), Box<dyn Error>> {
                     }
                 }
                 // println!("NUM_INDEXES: {:?}", num_indexes);
-                let mut num = &mut num_indexes.get(&first_num_index).unwrap().to_string();
+                let num = &mut num_indexes.get(&first_num_index).unwrap().to_string();
                 num.push_str(
                     num_indexes
                         .get(&last_num_index)
